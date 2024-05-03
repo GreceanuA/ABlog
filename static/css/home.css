@@ -1,0 +1,149 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;500;600;700&display=swap');
+
+
+/* Stilizare generală */
+.card {
+    background-color: #1a1a1a;
+    color: darkorange; /* poți păstra această linie dacă dorești să ajustezi și culoarea textului pentru a se potrivi cu fundalul */
+    border: 1px solid #007bff;
+     border-radius: 5px; /* colțuri rotunjite */
+    padding: 10px; /* spațiu interior pentru a separa conținutul de margine */
+}
+
+.category-link,
+.title-link {
+    /*color: #343a40; !* culoarea textului *!*/
+    text-decoration: none; /* eliminăm sublinierea */
+}
+
+/* Stilizare link utilizator */
+.user-link {
+    color: #007bff; /* culoarea textului */
+    text-decoration: none; /* eliminăm sublinierea */
+    font-weight: bold; /* facem textul mai îngroșat pentru a evidenția */
+}
+
+/* Stilizare link utilizator la hover */
+.user-link:hover {
+    color: darkorange; /* schimbăm culoarea textului la hover */
+}
+
+.separator {
+    border: 0;
+    height: 1px; /* grosimea liniei orizontale */
+    background-color: darkorange; /* culoarea liniei orizontale */
+    margin: 3px 0; /* spațiere între linie și text */
+}
+
+/*BUTOANE*/
+
+
+/* Background negru cu margini albastre pentru butoane */
+.btn {
+
+    position: relative;
+    background: darkorange;
+    color: darkorange;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-size: 10px; /* Mărimea fontului a fost setată la 10px */
+    letter-spacing: 3px;
+    font-weight: 400;
+    padding: 10px 30px;
+    transition: 0.5s;
+}
+
+.btn:hover {
+    background: var(--clr);
+    color: var(--clr);
+    letter-spacing: 0.25em;
+    box-shadow: 0 0 35px var(--clr);
+}
+
+.btn:before {
+    content: '';
+    position: absolute;
+    inset: 2px;
+    background: #1a1a1a;
+}
+
+.btn span {
+    position: relative;
+    z-index: 1;
+}
+
+.btn i {
+    position: absolute;
+    inset: 0;
+    display: block;
+}
+
+.btn i::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 80%;
+    width: 10px;
+    height: 4px;
+    background: #1a1a1a;
+    transform: translateX(-50%) skewX(325deg);
+    transition: 0.5s;
+}
+
+.btn:hover i::before {
+    width: 20px;
+    left: 20%;
+}
+
+.btn i::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 20%;
+    width: 10px;
+    height: 4px;
+    background: #1a1a1a;
+    transform: translateX(-50%) skewX(325deg);
+    transition: 0.5s;
+
+}
+
+.btn:hover i::after {
+    width: 20px;
+    left: 80%;
+}
+
+/*PAGINATOR*/
+
+.pagination {
+    margin-top: 10px;
+    list-style: none; /* elimină marcatorii de listă */
+    padding: 0; /* elimină spațiul interior al listei */
+}
+
+.page-item {
+    display: inline-block;
+    margin-right: 5px;
+}
+
+.page-link {
+
+    text-decoration: none;
+    padding: 0.5rem 0.75rem;
+    border: 1px solid #007bff;
+    border-radius: 0.25rem;
+    background: #1a1a1a;
+    color: darkorange;
+}
+
+.page-item.active .page-link {
+    background-color: #1a1a1a;
+    border-color: darkorange;
+    color: #007bff; /* schimbă culoarea textului pentru butonul activ */
+}
+
+.page-link:hover {
+    background-color: #1a1a1a;
+    color: darkorange; /* schimbă culoarea textului la hover */
+    border-color: darkorange;
+}

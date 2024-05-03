@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Edit Blog Post{% endblock %}
+{% load crispy_forms_filters %}
+{% block content %}
+
+
+    <link rel="stylesheet" href="{% static 'css/update_post.css' %}">
+
+    {% if user.is_authenticated %}
+        {% if user.id == post.author.id %}
+                <h1>Update Post...</h1>
+                <br><br>
+
+                    <div class="text-center">
+                        <form method="POST" enctype="multipart/form-data" class="d-inline-block">
+                            {% csrf_token %}
+                            {{ form|crispy }}
+                            {{ form.media }}
+                            <button type="submit" class="btn" style="--clr:#007BFFFF"><span>Update</span><i></i></button>
+                           <a href="{% url 'article-detail' post.pk %}" class="btn" style="--clr:#007BFFFF"><span>Back</span><i></i></a>
+
+                        </form>
+                    </div>
+
+        {% else %}
+            <p class="alert alert-danger">You are not allowed here!!!</p>
+        {% endif %}
+    {% else %}
+        <p class="alert alert-warning">You are not allowed here!!! Please Register/Login!</p>
+    {% endif %}
+{% endblock %}

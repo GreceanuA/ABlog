@@ -1,0 +1,122 @@
+{% load static %}
+{#{% load bootstrap5 %}#}
+{#{% bootstrap_css %}#}
+
+
+<!doctype html>
+<html lang="en">
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>
+        {% block title %}Andrei's Blog{% endblock %}
+    </title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="icon" type="image/x-icon" href="{% static 'favicon.jpg' %}">
+
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+</head>
+<body>
+<nav class="navbar navbar-expand-lg">
+    <div class="container-fluid">
+        <a class="navbar-brand " href="{% url 'home' %}">Andrei's Blog</a>
+
+        {#        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"#}
+        {#                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">#}
+        {#            <span class="navbar-toggler-icon"></span>#}
+        {#        </button>#}
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                {% if cat_menu %}
+                    <li class="nav-item dropdown">
+                        <button class="dropdown-toggle btn btn-outline me-2" type="button" id="dropdownMenuButton"
+                                data-bs-toggle="dropdown" aria-expanded="false" style="--clr:#007BFFFF">
+                            <span>Categories</span><i></i>
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            {% for item in cat_menu %}
+                                <li>
+                                    <a class="dropdown-item" href="{% url 'category' item|slugify %}">{{ item }}</a>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </li>
+
+                {% endif %}
+                {% if user.is_authenticated %}
+                    <li class="nav-item">
+                        <a class="btn btn-outline me-2" href="{% url 'add_post' %}" style="--clr:#007BFFFF"><span>Add Post</span><i></i></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="btn btn-outline me-2" href="{% url 'category-list' %}" style="--clr:#007BFFFF"><span>Blog Categories</span><i></i></a>
+                    </li>
+                    {% if user.is_authenticated %}
+                        {% if user.is_superuser %}
+                            <li class="nav-item">
+                                <a class="btn btn-outline" href="{% url 'add_category' %}"
+                                   style="--clr:#007BFFFF"><span>Add Category</span><i></i></a>
+                            </li>
+                        {% endif %}
+                    {% endif %}
+                {% endif %}
+            </ul>
+            <ul class="navbar-nav">
+                {% if user.is_authenticated %}
+                    <li class="nav-item dropdown">
+                        <button class="dropdown-toggle btn btn-outline me-2" type="button" data-bs-toggle="dropdown"
+                                aria-expanded="false" style="--clr:#007BFFFF">
+                            <span>{{ user.first_name }} {{ user.last_name }}</span><i></i></button>
+                        <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                            <li>
+                                <a class="dropdown-item" href="{% url 'edit_profile' %}">Edit Settings</a>
+                            </li>
+                            {% if user.profile.id %}
+                                <li>
+                                    <a class="dropdown-item" href="{% url 'edit_profile_page' user.profile.id %}">Edit
+                                        Profile Page</a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="{% url 'show_profile_page' user.profile.id %}">Show
+                                        Profile Page</a>
+                                </li>
+                            {% else %}
+                                <li>
+                                    <a class="dropdown-item" href="{% url 'create_profile_page' %}"
+                                       style="--clr:#007BFFFF">Create Profile
+                                        Page</a>
+                                </li>
+                            {% endif %}
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <form action="{% url 'logout' %}" method="post">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-outline" style="--clr:#007BFFFF">
+                                <span>Logout</span><i></i></button>
+                        </form>
+                    </li>
+                {% else %}
+                    <li class="nav-item">
+                        <a class="btn btn-outline me-2" href="{% url 'register' %}" style="--clr:#007BFFFF"><span>Register</span><i></i></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="btn btn-outline" href="{% url 'login' %}"
+                           style="--clr:#007BFFFF"><span>Login</span><i></i></a>
+                    </li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+
+</nav>
+
+<div class="container">
+    {% block content %}
+    {% endblock %}
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+</body>
+</html>

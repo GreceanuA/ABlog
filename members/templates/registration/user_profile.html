@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load bootstrap5 %}
+
+{% block content %}
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card border-0 shadow mb-5" style="background-color: #f8f9fa;">
+                    <div class="card-body">
+                        <div class="text-center">
+                            {% if page_user.profile_pic %}
+                                <img src="{{ page_user.profile_pic.url }}" alt="Profile Picture" class="img-fluid rounded-circle mb-3" style="width: 150px; height: 150px;">
+                            {% else %}
+                                <img src="{% static 'theblog/images/default_profile_pic.png' %}" alt="Default Profile Picture" class="img-fluid rounded-circle mb-3" style="width: 150px; height: 150px;">
+                            {% endif %}
+                        </div>
+                        <h3 class="card-title text-center mb-3">{{ page_user.user.first_name }} {{ page_user.user.last_name }}</h3>
+                        <p class="card-text text-center">{{ page_user.bio }}</p>
+                        <div class="d-flex justify-content-center">
+                            {% if page_user.website_url %}
+                                <a href="{{ page_user.website_url }}" target="_blank" class="btn btn-primary me-2 mb-2">Website</a>
+                            {% endif %}
+                            {% if page_user.facebook_url %}
+                                <a href="{{ page_user.facebook_url }}" target="_blank" class="btn btn-primary me-2 mb-2">Facebook</a>
+                            {% endif %}
+                            {% if page_user.linkedin_url %}
+                                <a href="{{ page_user.linkedin_url }}" target="_blank" class="btn btn-primary me-2 mb-2">LinkedIn</a>
+                            {% endif %}
+                            {% if page_user.github_url %}
+                                <a href="{{ page_user.github_url }}" target="_blank" class="btn btn-primary me-2 mb-2">GitHub</a>
+                            {% endif %}
+                            {% if page_user.instagram_url %}
+                                <a href="{{ page_user.instagram_url }}" target="_blank" class="btn btn-primary me-2 mb-2">Instagram</a>
+                            {% endif %}
+                            {% if page_user.twitter_url %}
+                                <a href="{{ page_user.twitter_url }}" target="_blank" class="btn btn-primary me-2 mb-2">Twitter</a>
+                            {% endif %}
+                            {% if page_user.tiktok_url %}
+                                <a href="{{ page_user.tiktok_url }}" target="_blank" class="btn btn-primary me-2 mb-2">TikTok</a>
+                            {% endif %}
+                            {% if page_user.snapchat_url %}
+                                <a href="{{ page_user.snapchat_url }}" target="_blank" class="btn btn-primary me-2 mb-2">Snapchat</a>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                <div class="text-center">
+                    <a href="#" onclick="window.history.back();" class="btn btn-xl btn-primary px-5 ">Back</a>
+
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

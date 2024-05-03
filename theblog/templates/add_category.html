@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% block title %}Create A Category{% endblock %}
+{% load static %}
+
+{% block content %}
+
+<link rel="stylesheet" href="{% static 'css/../../static/css/add_category.css' %}">
+
+    {% if user.is_authenticated %}
+    {% if user.is_superuser %}
+        <h1 class="mt-4">Add Category</h1>
+        <br><br>
+        <div class="custom-container" style="background-color: #1a1a1a; color: darkorange; padding: 150px;">
+                    <form method="POST">
+                        {% csrf_token %}
+                        {{ form.as_p }}
+                        <br>
+                        <button type="submit" class="btn btn-outline" style="--clr:#007BFFFF"><span>Add Category</span><i></i></button>
+                    </form>
+
+        </div>
+    {% else %}
+        <p class="alert alert-warning">You are not allowed here!!! Please Register/Login!</p>
+    {% endif %}
+{% else %}
+    <p class="alert alert-warning">You are not allowed here!!! Please Register/Login!</p>
+{% endif %}
+
+{% endblock %}
+

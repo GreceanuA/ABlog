@@ -1,0 +1,132 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load bootstrap5 %}
+{% bootstrap_css %}
+{% block title %}
+    {{ post.title_tag }}
+{% endblock %}
+
+{% block content %}
+
+    <div class="container py-4">
+        <div class="row justify-content-center">
+            <div class="col-md-12">
+                <article class="bg-light p-4 rounded">
+                    <header class="mb-4 border-bottom pb-3">
+                        <h1 class="fw-bold fs-3">{{ post.title }}</h1>
+                        <p class="text-muted mb-0 fs-6">
+                            By: <a href="{% url 'user_posts' user_id=post.author.id %}"
+                                   class="btn btn-sm btn-outline-primary">{{ post.author.first_name }} {{ post.author.last_name }}</a>
+
+                            - {{ post.date_posted }}
+                            {% if user.is_authenticated %}
+                                {% if user.id == post.author.id %}
+                                    - <a href="{% url 'update_post' post.pk %}"
+                                         class="btn btn-sm btn-primary">Edit</a>
+                                    <a href="{% url 'delete_post' post.pk %}" class="btn btn-sm btn-danger">Delete</a>
+                                {% endif %}
+                            {% endif %}
+                        </p>
+                    </header>
+
+                    {% if post.header_image %}
+                        <img src="{{ post.header_image.url }}" alt="Header Image" class="img-fluid mb-4 rounded">
+                    {% else %}
+                        <!-- Utilizați calea către imaginea implicită -->
+                        <img src="{% static '/theblog/images/default_image.png' %}" alt="Default Header Image"
+                             class="img-fluid mb-4 rounded">
+                    {% endif %}
+
+                    <div class="mt-4 fs-5">
+                        {{ post.body|safe }}
+                    </div>
+
+                    <hr>
+
+                    <form action="{% url 'like_post' post.pk %}" method="POST">
+                        {% csrf_token %}
+                        {% if user.is_authenticated %}
+                            {% if liked %}
+                                <button type="submit" name="post_id" value="{{ post.id }}"
+                                        class="btn btn-danger btn-sm">Unlike
+                                </button>
+                            {% else %}
+                                <button type="submit" name="post_id" value="{{ post.id }}"
+                                        class="btn btn-primary btn-sm">Like
+                                </button>
+                            {% endif %}
+                        {% else %}
+                            <small class="text-muted">
+                                <a href="{% url 'login' %}" class="text-decoration-none fw-normal"
+                                   onmouseover="this.style.fontWeight='bold'"
+                                   onmouseout="this.style.fontWeight='normal'">Login</a> to Like
+                            </small>
+                        {% endif %}
+                        - <span class="fw-bold">{{ total_like }}</span> Likes
+                    </form>
+
+                    <hr>
+
+                    <div class="card bg-light mb-3">
+                        <div class="row g-0 align-items-center">
+                            <div class="col-md-2">
+                                {% if post.author.profile.profile_pic %}
+                                    <img src="{{ post.author.profile.profile_pic.url }}" alt="Profile Picture"
+                                         class="img-fluid rounded-circle">
+                                {% else %}
+                                    <img src="{% static '/theblog/images/default_profile_pic.png' %}"
+                                         class="img-fluid rounded-circle" alt="Default Profile Picture">
+                                {% endif %}
+                            </div>
+                            <div class="col-md-10">
+                                <div class="card-body">
+                                    <h5 class="card-title">{{ post.author.first_name }} {{ post.author.last_name }}</h5>
+                                    <p class="small text-muted"></p>
+                                    {% if post.author.profile %}
+                                        {#Aici faci modificarea pt. a evita eroarea ce o da un profil necompletat#}
+                                        <a href="{% url 'show_profile_page' post.author.profile.id %}"
+                                           class="btn btn-primary btn-sm">Profile Page</a>
+                                    {% else %}
+                                        <p style="color: blue;">This user does not have a profile!</p>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <hr>
+
+                    <section>
+                        <h2>Comments...</h2>
+                        <br/>
+                        {% if not post.comments.all %}
+                            No Comments Yet...<a href="{% url 'add_comment' post.pk %}" class="btn btn-sm btn-outline-primary">Add One</a>
+                        {% else %}
+                            <a href="{% url 'add_comment' post.pk %}" class="btn btn-sm btn-outline-primary">Add Comment</a>
+                            <br/>
+                            <hr>
+                            {% for comment in post.comments.all %}
+                                <strong style="color: blue;">{{ comment.name }}</strong> - <strong>{{ comment.date_added }}</strong>
+
+                                {% if user.is_authenticated %}
+                                    {% if user.username == comment.name %}
+                                        - <a href="{% url 'update_post' post.pk %}"
+                                             class="btn btn-sm btn-primary">Edit</a>
+                                    {% endif %}
+                                    {% if user.username == comment.post.author.username %}
+                                        <a href="{% url 'delete_post' post.pk %}"
+                                           class="btn btn-sm btn-danger">Delete</a>
+                                    {% endif %}
+                                    <br/>
+                                {% endif %}
+                                {{ comment.body }}
+                                <hr>
+                            {% endfor %}
+                            <a href="{% url 'add_comment' post.pk %}" class="btn btn-sm btn-outline-primary">Add Comment</a>
+                        {% endif %}
+                    </section>
+                </article>
+            </div>
+        </div>
+    </div>
+{% endblock %}

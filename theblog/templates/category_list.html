@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block title %}Blog Categories{% endblock %}
+{% load static %}
+
+{% block content %}
+
+    <link rel="stylesheet" href="{% static 'css/category_list.css' %}">
+
+<div class="container">
+    <h1 class="mt-5 mb-4 text-center">Blog Categories</h1>
+<br><br>
+
+    <div class="row justify-content-center">
+        {% for item in cat_menu_list %}
+            <div class="col-md-3 mb-4">
+                <a href="{% url 'category' item|slugify %}" class="text-decoration-none">
+                    <div class="card">
+                        <div class="card-body text-center">
+                            <h4 class="card-title">{{ item }}</h4>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+
+
+{% endblock %}

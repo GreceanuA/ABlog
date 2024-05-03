@@ -1,0 +1,36 @@
+/* Stilurile pentru buton */
+.btn {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    font-weight: bold;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    border: 2px solid transparent;
+    border-radius: 0.25rem;
+    background-color: #007bff;
+    color: #fff;
+    transition: background-color 0.3s ease;
+}
+
+/* Stilurile pentru hover */
+.btn:hover {
+    background-color: #0056b3;
+}
+
+.password-info {
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    color: #333;
+}
+
+.custom-link {
+    color: #007bff; /* Schimbă culoarea link-ului la cea dorită */
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.custom-link:hover {
+    color: #0056b3; /* Schimbă culoarea la hover la cea dorită */
+}

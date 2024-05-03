@@ -1,0 +1,91 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+    <br>
+    <h1>Post</h1>
+
+    <link rel="stylesheet" type="text/css" href="{% static 'css/home.css' %}">
+
+    <div class="container">
+        {% for post in object_list %}
+            <div class="row mt-1 pt-1">
+                <div class="card my-1 shadow">
+                    <div class="row g-0 align-items-center">
+                        <div class="col-md-1">
+                            {% if post.author.profile.profile_pic %}
+                                <img src="{{ post.author.profile.profile_pic.url }}" alt="Poza"
+                                     class="img-fluid rounded-circle">
+                            {% else %}
+                                <img src="{% static 'theblog/images/default_profile_pic.png' %}"
+                                     class="img-fluid rounded-circle" alt="">
+                            {% endif %}
+                        </div>
+                        <div class="col-md-11">
+                            <p>
+                                Category: <span style="color: green">{{ post.category|capfirst }}</span>
+                            </p>
+                            <h2><a href="{% url 'article-detail' post.pk %}" class="title-link">{{ post.title }}</a></h2>
+                            <div class="container">
+                                <!-- Conținutul containerului -->
+
+                                <!-- Informații despre autor și butoane -->
+                                <div class="d-flex justify-content-between mt-2">
+                                    <!-- Informații despre autor -->
+                                    <p>
+                                        <strong>By:</strong>
+                                        <a href="{% url 'user_posts' user_id=post.author.id %}" class="user-link">
+                                            {{ post.author.first_name }} {{ post.author.last_name }}
+                                        </a>
+                                        - <span class="title-tag"><strong style="color: green">{{ post.title_tag }}</strong></span>
+                                    </p>
+                                    <!-- Butoane -->
+                                    <p>
+                                        <small>
+                                            {% if user.is_authenticated %}
+                                                {% if user.id == post.author.id %}
+                                                    <a href="{% url 'update_post' post.pk %}" class="btn btn-sm" style="--clr:#007BFFFF; margin-top: -30px"><span>Edit</span><i></i></a>
+                                                    <a href="{% url 'delete_post' post.pk %}" class="btn btn-sm" style="--clr:red; margin-top: -30px"><span>Delete</span><i></i></a>
+                                                {% endif %}
+                                            {% endif %}
+                                        </small>
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div class="separator"></div>
+                            <div class="card-body">
+                                <p>{{ post.body|slice:":200"|safe }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+    {# Paginare #}
+    {% if page_obj.has_other_pages %}
+        <ul class="pagination justify-content-center">
+            {% if page_obj.number != 1 %}
+                <li class="page-item"><a class="page-link" href="?page=1">First</a></li>
+            {% endif %}
+            {% if page_obj.has_previous %}
+                <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}">&laquo;</a></li>
+            {% endif %}
+            {% for i in page_obj.paginator.page_range %}
+                {% if i == page_obj.number %}
+                    <li class="page-item active"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+                {% elif i == page_obj.number|add:'-1' or i == page_obj.number|add:'1' %}
+                    <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+                {% endif %}
+            {% endfor %}
+            {% if page_obj.has_next %}
+                <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}">&raquo;</a></li>
+            {% endif %}
+            {% if page_obj.number != page_obj.paginator.num_pages %}
+                <li class="page-item"><a class="page-link" href="?page={{ page_obj.paginator.num_pages }}" >Last</a></li>
+            {% endif %}
+        </ul>
+    {% endif %}
+{% endblock %}

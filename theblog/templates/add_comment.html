@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block title %}Comment on Blog Post{% endblock %}
+{% load static %}
+{% load bootstrap5 %}
+{% bootstrap_css %}
+{% block content %}
+    
+    
+    
+    <div class="container">
+        <h1 class="mt-4">Add Comment...</h1>
+        <br/>
+        <div class="card shadow-lg bg-light">
+            <div class="card-body">
+                <form method="POST">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <button type="submit" class="btn btn-primary">Add Comment</button>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

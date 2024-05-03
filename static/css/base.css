@@ -1,0 +1,162 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;500;600;700&display=swap');
+
+body {
+    overflow: scroll;
+    background-color: #1a1a1a; /* Fundal închis */
+    color: darkorange; /* Text galben */
+    font-family: 'Trebuchet MS', sans-serif; /* Font similar cu cel folosit în joc */
+}
+
+
+/* Navbar Styles */
+.navbar {
+    background-color: #1a1a1a; /* Black background */
+}
+
+.navbar-brand {
+    color: darkorange; /* Blue text */
+    font-weight: bold;
+    transition: color 0.3s; /* Smooth transition */
+    font-family: 'Uncial Antiqua', sans-serif;
+}
+
+.navbar-brand:hover {
+    color: #007bff; /* White text on hover */
+}
+
+
+.navbar .dropdown-menu {
+    background-color: #1a1a1a; /* Black background */
+}
+
+.navbar .dropdown-item {
+    color: #007bff; /* Blue text */
+}
+
+.navbar .dropdown-item:hover {
+    background-color: #1a1a1a; /* Background color on hover */
+    color: darkorange; /* White text color on hover */
+    text-decoration: none; /* Remove underline on hover */
+}
+
+/*BUTOANE*/
+
+/* Background negru cu margini albastre pentru butoane */
+.navbar .nav-item .btn {
+    position: relative;
+    background: darkorange;
+    color: darkorange;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-size: 10px; /* Mărimea fontului a fost setată la 10px */
+    letter-spacing: 3px;
+    font-weight: 400;
+    padding: 10px 30px;
+    transition: 0.5s;
+}
+
+.navbar .nav-item .btn:hover {
+    background: var(--clr);
+    color: var(--clr);
+    letter-spacing: 0.25em;
+    box-shadow: 0 0 35px var(--clr);
+}
+
+.navbar .nav-item .btn:before {
+    content: '';
+    position: absolute;
+    inset: 2px;
+    background: #1a1a1a;
+}
+
+.navbar .nav-item .btn span {
+    position: relative;
+    z-index: 1;
+}
+
+.navbar .nav-item .btn i {
+    position: absolute;
+    inset: 0;
+    display: block;
+}
+
+.navbar .nav-item .btn i::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 80%;
+    width: 10px;
+    height: 4px;
+    background: #1a1a1a;
+    transform: translateX(-50%) skewX(325deg);
+    transition: 0.5s;
+}
+
+.navbar .nav-item .btn:hover i::before {
+    width: 20px;
+    left: 20%;
+}
+
+.navbar .nav-item .btn i::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 20%;
+    width: 10px;
+    height: 4px;
+    background: #1a1a1a;
+    transform: translateX(-50%) skewX(325deg);
+    transition: 0.5s;
+
+}
+
+.navbar .nav-item .btn:hover i::after {
+    width: 20px;
+    left: 80%;
+}
+
+
+
+
+
+
+
+
+/*SCROLL*/
+/* Personalizează bara de derulare */
+::-webkit-scrollbar {
+    width: 10px; /* Lățimea barei de derulare */
+}
+
+/* Personalizează butonul de derulare (thumb) */
+::-webkit-scrollbar-thumb {
+    background-color: #000000; /* Culoarea butonului de derulare */
+    border-radius: 5px; /* Raza colțurilor butonului de derulare */
+}
+
+/* Personalizează zona de fundal a barei de derulare */
+::-webkit-scrollbar-track {
+    background-color: #454141; /* Culoarea fundalului barei de derulare */
+}
+
+
+/*.btn.btn-outline-primary {*/
+/*    margin: 0;*/
+/*    padding: 6px 16px; !* Redu dimensiunea padding-ului pentru a micsora butonul *!*/
+/*    box-sizing: border-box;*/
+/*    font-family: 'Poppins', sans-serif;*/
+/*    !* Adaugă alte stiluri aici pentru buton, dacă este nevoie *!*/
+/*}*/
+/*!*a*!*/
+/*!*{*!*/
+/*!*    position: relative;*!*/
+/*!*    background: #fff;*!*/
+/*!*    color: #fff;*!*/
+/*!*    text-decoration: none;*!*/
+/*!*    text-transform: uppercase;*!*/
+/*!*    font-size: 1.5em;*!*/
+/*!*    letter-spacing: 01em;*!*/
+/*!*    font-weight: 400;*!*/
+/*!*    padding: 10px 30px;*!*/
+/*!*    transition: 0.5s;*!*/
+/*!*}*!*/

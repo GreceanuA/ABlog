@@ -1,0 +1,43 @@
+
+
+/* Stiluri pentru card */
+.card {
+    border-radius: 17px; /* Margini rotunjite pentru card */
+    background-color: darkorange; /* Culoare de fundal pentru card */
+    padding: 4px; /* Spațiu interior al cardului */
+    margin-bottom: 10px; /* Spațiu între carduri */
+    transition: background-color 0.3s, color 0.3s, box-shadow 0.3s; /* Adăugăm o tranziție pentru schimbarea culorilor și a umbrelor */
+}
+
+
+
+/* Stiluri pentru titlul cardului */
+.card-title {
+    font-size: 20px; /* Mărimea fontului pentru titlu */
+    margin-bottom: 0; /* Elimin spațiul de la marginea de jos a titlului */
+    font-weight: bold; /* Font bold pentru titlu */
+    text-transform: capitalize;
+}
+
+/* Stiluri pentru textul din card la hover */
+.card:hover .card-title {
+    color: #007bff; /* Schimbăm culoarea textului la hover */
+}
+
+
+/* Stiluri pentru card la hover */
+.card:hover {
+    background-color: #007bff; /* Schimbăm culoarea de fundal la hover */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Creștem umbra la hover */
+}
+
+/* Stiluri pentru fundalul și textul cardului */
+.card-body {
+    background-color: #1a1a1a; /* Culoare de fundal pentru card */
+    color: darkorange; /* Culoare text pentru card */
+    /*padding: 20px; !* Spațiu interior al cardului *!*/
+    /*border-radius: 5px; !* Margini rotunjite pentru card *!*/
+    /*border: 20px  darkorange; !* Bordură subțire pentru card *!*/
+}
+
+

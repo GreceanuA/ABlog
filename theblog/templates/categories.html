@@ -1,0 +1,88 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block content %}
+
+    <link rel="stylesheet" href="{% static 'css/categories.css' %}">
+
+{% if category_posts %}
+    <h1 style="margin-bottom: 20px;">{{ cats }}</h1>
+<div class="container">
+    {% for post in category_posts %}
+        <div class="row mt-1 pt-1">
+            <div class="card my-1 shadow">
+                <div class="row g-0 align-items-center">
+                    <div class="col-md-1">
+                        {% if post.author.profile.profile_pic %}
+                            <img src="{{ post.author.profile.profile_pic.url }}" alt="Poza"
+                                 class="img-fluid rounded-circle">
+                        {% else %}
+                            <img src="{% static '/theblog/images/default_profile_pic.png' %}"
+                                 class="img-fluid rounded-circle" alt="">
+                        {% endif %}
+                    </div>
+                    <div class="col-md-11">
+                        <h2><a href="{% url 'article-detail' post.pk %}" class="title-link">{{ post.title }}</a></h2>
+                        <div class="container">
+                            <div class="d-flex justify-content-between mt-2">
+                                <p>
+                                    <strong>By:</strong>
+                                    <a href="{% url 'user_posts' user_id=post.author.id %}"
+                                       class="user-link">{{ post.author.first_name }} {{ post.author.last_name }}</a>
+                                    - <span class="title-tag"><strong style="color: green">{{ post.title_tag }}</strong></span>
+                                    - {{ post.date_posted }}
+                                </p>
+                                <p>
+                                    <small>
+                                        {% if user.is_authenticated %}
+                                            {% if user.id == post.author.id %}
+                                                <a href="{% url 'update_post' post.pk %}" class="btn btn-sm"
+                                                   style="--clr:#007BFFFF; margin-top: -30px"><span>Edit</span><i></i></a>
+                                                <a href="{% url 'delete_post' post.pk %}" class="btn btn-sm"
+                                                   style="--clr:red; margin-top: -30px"><span>Delete</span><i></i></a>
+                                            {% endif %}
+                                        {% endif %}
+                                    </small>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="separator"></div>
+                        <div class="card-body">
+                            <p>{{ post.body|slice:":200"|safe }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+</div>
+
+    {% if category_posts.has_other_pages %}
+        <ul class="pagination justify-content-center">
+            {% if category_posts.has_previous %}
+                <li class="page-item"><a class="page-link" href="?page=1">First</a></li>
+                <li class="page-item"><a class="page-link" href="?page={{ category_posts.previous_page_number }}">&laquo;</a></li>
+            {% endif %}
+            {% for i in category_posts.paginator.page_range %}
+                {% if category_posts.number == i %}
+                    <li class="page-item active"><span class="page-link">{{ i }}</span></li>
+                {% else %}
+                    <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+                {% endif %}
+            {% endfor %}
+            {% if category_posts.has_next %}
+                <li class="page-item"><a class="page-link" href="?page={{ category_posts.next_page_number }}">&raquo;</a></li>
+                <li class="page-item"><a class="page-link" href="?page={{ category_posts.paginator.num_pages }}">Last</a></li>
+            {% endif %}
+        </ul>
+    {% endif %}
+
+{% else %}
+    <br><br>
+    <h2>We're sorry, there are no posts in this section....</h2>
+{% endif %}
+
+
+
+{% endblock %}

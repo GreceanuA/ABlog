@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Edit Profile{% endblock %}
+{% block content %}
+
+
+    <link rel="stylesheet" type="text/css" href="{% static 'css/edit_profile.css' %}">
+
+    <h1>Edit Settings...</h1>
+    <br/><br/>
+
+    {{ user.profile.bio }}
+
+    <br/><br/>
+    <div class="form-group">
+        <form method="POST">
+            {% csrf_token %}
+            {{ form.as_p }}
+
+            <button class="btn btn-primary">Update Settings</button>
+        </form>
+    </div>
+{% endblock %}

@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block title %}Register{% endblock %}
+{% block content %}
+
+<script>
+    // Folosim JavaScript pentru a elimina mesajele de eroare implicite
+    document.addEventListener('DOMContentLoaded', function() {
+        // Selectează toate mesajele de eroare
+        var errorMessages = document.querySelectorAll('.errorlist');
+
+        // Pentru fiecare mesaj de eroare, elimină textul și bulletul
+        errorMessages.forEach(function(errorMessage) {
+            errorMessage.innerHTML = ''; // Elimină textul
+        });
+    });
+</script>
+
+<h1>Register...</h1>
+<br/><br/>
+<div class="form-group">
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button class="btn btn-secondary">Register</button>
+    </form>
+</div>
+{% endblock %}

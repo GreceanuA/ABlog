@@ -1,0 +1,37 @@
+/* Stiluri CSS pentru formularul de login */
+
+.login-form {
+    max-width: 400px; /* Setează lățimea maximă a formularului */
+    margin: 0 auto; /* Centrează formularul pe pagină */
+}
+
+.login-form .form-group {
+    margin-bottom: 20px; /* Spațiere între grupurile de câmpuri */
+}
+
+.login-form label {
+    font-weight: bold; /* Setează textul etichetei cu caractere îngroșate */
+}
+
+.login-form input[type="text"],
+.login-form input[type="password"] {
+    width: 100%; /* Umple complet lățimea câmpului */
+    padding: 10px; /* Adaugă spațiere în jurul conținutului câmpului */
+    border: 1px solid #ccc; /* Adaugă o linie subțire de contur în jurul câmpului */
+    border-radius: 4px; /* Rotunjirea colțurilor câmpului */
+}
+
+.login-form button {
+    width: 100%; /* Umple complet lățimea butonului */
+    padding: 10px; /* Adaugă spațiere în jurul conținutului butonului */
+    font-size: 16px; /* Mărește dimensiunea textului butonului */
+    border: none; /* Elimină conturul butonului */
+    background-color: #007bff; /* Setează culoarea de fundal a butonului */
+    color: #fff; /* Setează culoarea textului butonului */
+    border-radius: 4px; /* Rotunjirea colțurilor butonului */
+    cursor: pointer; /* Transformă cursorul într-un pointer la hover */
+}
+
+.login-form button:hover {
+    background-color: #0056b3; /* Culoare de fundal mai întunecată la hover */
+}
