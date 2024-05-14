@@ -15,7 +15,6 @@ from pathlib import Path
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
@@ -26,7 +25,6 @@ SECRET_KEY = 'django-insecure-11lo0diq3qks42h#d0=y8)qqql0@$n(*=w*x7v40om4lv1+_4r
 DEBUG = True
 
 ALLOWED_HOSTS = []
-
 
 # Application definition
 
@@ -76,7 +74,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'ablog.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
@@ -86,7 +83,6 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
@@ -106,7 +102,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/5.0/topics/i18n/
 
@@ -118,7 +113,6 @@ USE_I18N = True
 
 USE_TZ = True
 
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
@@ -128,10 +122,17 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static/'),
                     )
 
-
-
 LOGIN_REDIRECT_URL = 'home'
 LOGOUT_REDIRECT_URL = 'home'
+
+CKEDITOR_CONFIGS = {
+    'default': {
+            'skin': 'moono-dark',
+
+    },
+
+}
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
@@ -141,13 +142,12 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
 CRISPY_TEMPLATE_PACK = "bootstrap5"
 
-
 # Aici treci aceasta linie, pentru a evita eroarea data de blocarea by default a porturilor 25, 465 si 587)
-# EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 # sau folosesti un smtp specific
-EMAIL_HOST = 'smtp.gmail.com' # înlocuiește cu site-ul unde ai creat email-ul
-EMAIL_PORT = 587
-EMAIL_HOST_USER = 'andrei78greceanu@gmail.com'  # înlocuiește cu adresa ta de Gmail
-EMAIL_HOST_PASSWORD = 'znva xtpp vrfa leah'  # înlocuiește cu parola generată pentru aplicații
-EMAIL_USE_TLS = True
+# EMAIL_HOST = 'smtp.gmail.com' # înlocuiește cu site-ul unde ai creat email-ul
+# EMAIL_PORT = 587
+# EMAIL_HOST_USER = 'your email here'  # înlocuiește cu adresa ta de Gmail
+# EMAIL_HOST_PASSWORD = 'your code here'  # înlocuiește cu parola generată pentru aplicații
+# EMAIL_USE_TLS = True

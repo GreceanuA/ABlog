@@ -1,7 +1,6 @@
-/*BUTOANE*/
+/**BUTOANE*!*/
 
 
-/* Background negru cu margini albastre pentru butoane */
 .btn {
 
     position: relative;
@@ -77,13 +76,22 @@
 }
 
 
-
-.content-container {
-    max-width: 800px; /* Setează lățimea maximă a containerului */
-    margin: 100px auto; /* Afișează containerul în centru pe orizontală și poziționează-l la 150px de sus */
-    padding: 20px; /* Adaugă un spațiu între conținut și margini */
-    border: 1px solid darkorange; /* Adaugă un border în jurul containerului, opțional */
-    border-radius: 8px; /* Adaugă colțuri rotunjite la container, opțional */
-    background-color: #1a1a1a; /* Adaugă o culoare de fundal, opțional */
+.custom-link {
+    text-decoration: none;
 }
 
+.custom-link .custom-hover {
+    font-weight: bold;
+}
+
+.custom-link:hover .custom-hover {
+    color: darkorange; /* Culorea textului la hover */
+}
+
+
+
+.custom-hr {
+    border-top: 2px solid darkorange; /* Schimbă culoarea și grosimea liniei după preferințe */
+    margin-top: 20px; /* Adaugă un spațiu între linii */
+    margin-bottom: 20px; /* Adaugă un spațiu între linii */
+}

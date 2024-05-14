@@ -2,8 +2,8 @@ from django.urls import path
 from . import views
 from .views import UserRegisterView, UserEditView, PasswordsChangeView, ShowProfilePageView, EditProfilePageView, \
     CreateProfilePageView
-from .views import MyPasswordResetView, MyPasswordResetDoneView,MyPasswordResetCompleteView
-
+from .views import MyPasswordResetView, MyPasswordResetDoneView, MyPasswordResetCompleteView
+from .forms import MyPasswordResetForm
 
 urlpatterns = [
     path('register/', UserRegisterView.as_view(), name='register'),
@@ -15,9 +15,9 @@ urlpatterns = [
     path('<int:pk>/edit_profile_page/', EditProfilePageView.as_view(), name='edit_profile_page'),
     path('create_profile_page/', CreateProfilePageView.as_view(), name='create_profile_page'),
     path('profile/<int:pk>/', ShowProfilePageView.as_view(), name='profile_page'),
-    path('reset_password/', MyPasswordResetView.as_view(), name='password_reset'),
+    path('reset_password/', MyPasswordResetView.as_view(form_class=MyPasswordResetForm), name='password_reset'),  # Adaugă form_class aici
     path('reset_password/done/', MyPasswordResetDoneView.as_view(), name='password_reset_done'),
     path('reset/done/', MyPasswordResetCompleteView.as_view(), name='password_reset_complete'),
-
-
 ]
+
+

@@ -17,7 +17,9 @@ class HomeView(ListView):
     model = Post
     template_name = 'home.html'
     cats = Category.objects.all()
-    ordering = ['-date_posted']
+    # ordering = ['-date_posted']
+    #sau id
+    ordering = ['-id']
     paginate_by = 5  # Numărul de postări pe pagină
 
     def get_context_data(self, *args, **kwargs):
@@ -182,15 +184,17 @@ class DeleteCommentView(DeleteView):
         return reverse_lazy('article-detail', kwargs={'pk': self.object.post.pk})
 
 
+
+
 def user_posts(request, user_id):
     # Obține obiectul utilizatorului sau aruncă o eroare 404 dacă utilizatorul nu există
     user = get_object_or_404(User, id=user_id)
 
     # Obține toate postările asociate cu utilizatorul dat
-    user_posts = Post.objects.filter(author_id=user_id)
+    user_posts = Post.objects.filter(author_id=user_id).order_by('-date_posted')
 
     # Paginare - specifică numărul de postări pe pagină
-    paginator = Paginator(user_posts, 10)  # Schimbă 10 cu numărul dorit de postări pe pagină
+    paginator = Paginator(user_posts, 3)  # Schimbă 10 cu numărul dorit de postări pe pagină
 
     # Obține numărul paginii din parametrul de query
     page_number = request.GET.get('page')
@@ -205,5 +209,6 @@ def user_posts(request, user_id):
         # Dacă numărul paginii este mai mare decât numărul total de pagini, afișează ultima pagină
         user_posts_paginated = paginator.page(paginator.num_pages)
 
-    # Trimite numele utilizatorului și postările paginate către șablonul HTML
-    return render(request, 'user_posts.html', {'user': user, 'user_posts': user_posts_paginated})
+    # Trimite numele utilizatorului curent și postările paginate către șablonul HTML
+    return render(request, 'user_posts.html', {'user': user, 'user_posts': user_posts_paginated, 'current_user': request.user})
+

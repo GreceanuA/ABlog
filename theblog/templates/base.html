@@ -67,7 +67,7 @@
                     <li class="nav-item dropdown">
                         <button class="dropdown-toggle btn btn-outline me-2" type="button" data-bs-toggle="dropdown"
                                 aria-expanded="false" style="--clr:#007BFFFF">
-                            <span>{{ user.first_name }} {{ user.last_name }}</span><i></i></button>
+                            <span>{{ request.user.first_name }} {{ request.user.last_name }}</span><i></i></button>
                         <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                             <li>
                                 <a class="dropdown-item" href="{% url 'edit_profile' %}">Edit Settings</a>

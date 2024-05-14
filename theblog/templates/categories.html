@@ -26,16 +26,17 @@
                         <h2><a href="{% url 'article-detail' post.pk %}" class="title-link">{{ post.title }}</a></h2>
                         <div class="container">
                             <div class="d-flex justify-content-between mt-2">
+                            {% if user.is_authenticated %}
                                 <p>
                                     <strong>By:</strong>
                                     <a href="{% url 'user_posts' user_id=post.author.id %}"
                                        class="user-link">{{ post.author.first_name }} {{ post.author.last_name }}</a>
-                                    - <span class="title-tag"><strong style="color: green">{{ post.title_tag }}</strong></span>
-                                    - {{ post.date_posted }}
+                                    ~ <span class="title-tag"><strong style="color: green">{{ post.title_tag }}</strong></span>
+                                    ~ {{ post.date_posted }}
                                 </p>
                                 <p>
                                     <small>
-                                        {% if user.is_authenticated %}
+
                                             {% if user.id == post.author.id %}
                                                 <a href="{% url 'update_post' post.pk %}" class="btn btn-sm"
                                                    style="--clr:#007BFFFF; margin-top: -30px"><span>Edit</span><i></i></a>

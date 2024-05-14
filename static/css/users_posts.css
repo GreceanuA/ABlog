@@ -1,39 +1,26 @@
-@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;500;600;700&display=swap');
+/* Stilizare pentru list-group */
 
 
-/* Stilizare generală */
-.card {
-    background-color: #1a1a1a;
-    color: darkorange; /* poți păstra această linie dacă dorești să ajustezi și culoarea textului pentru a se potrivi cu fundalul */
-    border: 1px solid #007bff;
-     border-radius: 5px; /* colțuri rotunjite */
-    padding: 10px; /* spațiu interior pentru a separa conținutul de margine */
+
+.list-group {
+    list-style: none; /* Elimină bullet-urile din lista */
 }
 
-.category-link,
-.title-link {
-    /*color: #343a40; !* culoarea textului *!*/
-    text-decoration: none; /* eliminăm sublinierea */
-
+.post-container {
+    border: 1px solid darkorange; /* Adaugă chenar pentru fiecare post */
+    border-radius: 5px; /* Rotunjirea colțurilor chenarului */
+    padding: 15px; /* Adaugă spațiu între conținut și chenar */
+    margin-bottom: 15px; /* Adaugă spațiu între postări */
 }
 
-/* Stilizare link utilizator */
-.user-link {
-    color: #007bff; /* culoarea textului */
-    text-decoration: none; /* eliminăm sublinierea */
-    font-weight: bold; /* facem textul mai îngroșat pentru a evidenția */
+.post-title {
+    text-decoration: none; /* Elimină sublinierea de pe link-uri */
+    font-size: 25px ;
+    font-weight: bold;
 }
 
-/* Stilizare link utilizator la hover */
-.user-link:hover {
-    color: darkorange; /* schimbăm culoarea textului la hover */
-}
-
-.separator {
-    border: 0;
-    height: 1px; /* grosimea liniei orizontale */
-    background-color: darkorange; /* culoarea liniei orizontale */
-    margin: 3px 0; /* spațiere între linie și text */
+.post-title {
+    margin-right: 500px; /* Adaugă o margine dreaptă de 10px între titlu și data postării */
 }
 
 /*BUTOANE*/
@@ -115,44 +102,6 @@
 }
 
 
-
-
-
-
-/*PAGINATOR*/
-
-.pagination {
-    margin-top: 10px;
-    list-style: none; /* elimină marcatorii de listă */
-    padding: 0; /* elimină spațiul interior al listei */
-}
-
-.page-item {
-    display: inline-block;
-    margin-right: 5px;
-}
-
-.page-link {
-
-    text-decoration: none;
-    padding: 0.5rem 0.75rem;
-    border: 1px solid #007bff;
-    border-radius: 0.25rem;
-    background: #1a1a1a;
-    color: darkorange;
-}
-
-.page-item.active .page-link {
-    background-color: #1a1a1a;
-    border-color: darkorange;
-    color: #007bff; /* schimbă culoarea textului pentru butonul activ */
-}
-
-.page-link:hover {
-    background-color: #1a1a1a;
-    color: darkorange; /* schimbă culoarea textului la hover */
-    border-color: darkorange;
-}
 
 /*PAGINATOR*/
 

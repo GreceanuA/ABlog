@@ -3,9 +3,9 @@
 {% block title %}Edit Profile{% endblock %}
 {% block content %}
 
+<link rel="stylesheet" type="text/css" href="{% static 'css/edit_profile.css' %}">
 
-    <link rel="stylesheet" type="text/css" href="{% static 'css/edit_profile.css' %}">
-
+<div class="content-container"> <!-- Adăugăm clasa CSS .content-container aici -->
     <h1>Edit Settings...</h1>
     <br/><br/>
 
@@ -17,7 +17,10 @@
             {% csrf_token %}
             {{ form.as_p }}
 
-            <button class="btn btn-primary">Update Settings</button>
+            <button class="btn" style="--clr:#007BFFFF"><span>Update Settings</span><i></i></button>
         </form>
     </div>
+</div> <!-- Închidem div-ul .content-container -->
+
 {% endblock %}
+

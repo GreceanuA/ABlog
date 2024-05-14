@@ -1,37 +1,134 @@
-/* Stiluri CSS pentru formularul de login */
 
-.login-form {
-    max-width: 400px; /* Setează lățimea maximă a formularului */
-    margin: 0 auto; /* Centrează formularul pe pagină */
+/* Stil pentru containerul formularului */
+.form-container {
+    width: 450px; /* Lățimea formularului */
+    margin: 150px auto 0; /* Centrare pe orizontală */
+    padding: 40px; /* Spațiere între conținut și margini */
+    border: 2px solid darkorange; /* Adăugare border de 2px de culoare darkorange */
+    border-radius: 10px; /* Margini rotunjite */
 }
 
-.login-form .form-group {
-    margin-bottom: 20px; /* Spațiere între grupurile de câmpuri */
+
+/*BUTOANE*/
+
+
+/* Background negru cu margini albastre pentru butoane */
+.btn {
+
+    position: relative;
+    background: darkorange;
+    color: darkorange;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-size: 10px; /* Mărimea fontului a fost setată la 10px */
+    letter-spacing: 3px;
+    font-weight: 400;
+    padding: 10px 30px;
+    transition: 0.5s;
 }
 
-.login-form label {
-    font-weight: bold; /* Setează textul etichetei cu caractere îngroșate */
+.btn:hover {
+    background: var(--clr);
+    color: var(--clr);
+    letter-spacing: 0.25em;
+    box-shadow: 0 0 35px var(--clr);
 }
 
-.login-form input[type="text"],
-.login-form input[type="password"] {
-    width: 100%; /* Umple complet lățimea câmpului */
-    padding: 10px; /* Adaugă spațiere în jurul conținutului câmpului */
-    border: 1px solid #ccc; /* Adaugă o linie subțire de contur în jurul câmpului */
-    border-radius: 4px; /* Rotunjirea colțurilor câmpului */
+.btn:before {
+    content: '';
+    position: absolute;
+    inset: 2px;
+    background: #1a1a1a;
 }
 
-.login-form button {
-    width: 100%; /* Umple complet lățimea butonului */
-    padding: 10px; /* Adaugă spațiere în jurul conținutului butonului */
-    font-size: 16px; /* Mărește dimensiunea textului butonului */
-    border: none; /* Elimină conturul butonului */
-    background-color: #007bff; /* Setează culoarea de fundal a butonului */
-    color: #fff; /* Setează culoarea textului butonului */
-    border-radius: 4px; /* Rotunjirea colțurilor butonului */
-    cursor: pointer; /* Transformă cursorul într-un pointer la hover */
+.btn span {
+    position: relative;
+    z-index: 1;
 }
 
-.login-form button:hover {
-    background-color: #0056b3; /* Culoare de fundal mai întunecată la hover */
+.btn i {
+    position: absolute;
+    inset: 0;
+    display: block;
+}
+
+.btn i::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 80%;
+    width: 10px;
+    height: 4px;
+    background: #1a1a1a;
+    transform: translateX(-50%) skewX(325deg);
+    transition: 0.5s;
+}
+
+.btn:hover i::before {
+    width: 20px;
+    left: 20%;
+}
+
+.btn i::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 20%;
+    width: 10px;
+    height: 4px;
+    background: #1a1a1a;
+    transform: translateX(-50%) skewX(325deg);
+    transition: 0.5s;
+
+}
+
+.btn:hover i::after {
+    width: 20px;
+    left: 80%;
+}
+
+/* Stil pentru link-ul "Forgot Password" */
+a.forgot-password-link {
+    text-decoration: none; /* Eliminare linie de sub text */
+    color: #007BFFFF; /* Culoare text neactivă */
+}
+
+/* Stil pentru hover pe link */
+a.forgot-password-link:hover {
+    color: darkorange; /* Schimbare culoare la hover */
+}
+
+
+/* Stil pentru link-ul "Here..." */
+a.register-link {
+    text-decoration: none; /* Eliminare linie de sub text */
+    color: #007BFFFF; /* Culoare text neactivă */
+}
+
+/* Stil pentru hover pe link */
+a.register-link:hover {
+    color: darkorange; /* Schimbare culoare la hover */
+}
+
+
+/* Stil pentru caseta de text */
+.form-control {
+    background-color: #1a1a1a; /* Culoare de fundal negru */
+    color: darkorange; /* Culoare text darkorange */
+    border: 2px solid darkorange; /* Border cu culoare darkorange */
+
+}
+
+/* Anularea stilurilor implicite ale browserului */
+.form-control:focus {
+    background-color: #1a1a1a; /* Menținerea culorii de fundal negru la focus */
+    color: darkorange; /* Menținerea culorii textului darkorange la focus */
+    border-color: darkorange; /* Menținerea culorii borderului darkorange la focus */
+    outline: none; /* Eliminarea outline-ului implicit al browserului */
+}
+
+
+.form-control:-webkit-autofill {
+    box-shadow: 0 0 0 50px #1a1a1a inset; /* Adaugă o umbră pentru a schimba culoarea de fundal */
+    -webkit-text-fill-color: darkorange !important; /* Schimbă culoarea textului  */
 }

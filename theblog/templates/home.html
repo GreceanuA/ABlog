@@ -25,30 +25,40 @@
                             <p>
                                 Category: <span style="color: green">{{ post.category|capfirst }}</span>
                             </p>
-                            <h2><a href="{% url 'article-detail' post.pk %}" class="title-link">{{ post.title }}</a></h2>
+                            <div>
+                                <h2 style="display: inline;"><a href="{% url 'article-detail' post.pk %}"
+                                                                class="title-link">{{ post.title }}</a></h2>
+                                <h5 style="display: inline;">~ <small>{{ post.date_posted }}</small></h5>
+                            </div>
+
+
                             <div class="container">
                                 <!-- Conținutul containerului -->
 
                                 <!-- Informații despre autor și butoane -->
                                 <div class="d-flex justify-content-between mt-2">
                                     <!-- Informații despre autor -->
-                                    <p>
-                                        <strong>By:</strong>
-                                        <a href="{% url 'user_posts' user_id=post.author.id %}" class="user-link">
-                                            {{ post.author.first_name }} {{ post.author.last_name }}
-                                        </a>
-                                        - <span class="title-tag"><strong style="color: green">{{ post.title_tag }}</strong></span>
-                                    </p>
-                                    <!-- Butoane -->
-                                    <p>
+                                    {% if user.is_authenticated %}
+
+                                        <p>
+                                            <strong>By:</strong>
+                                            <a href="{% url 'user_posts' user_id=post.author.id %}" class="user-link">
+                                                {{ post.author.first_name }} {{ post.author.last_name }}
+                                            </a>
+                                            ~ <span class="title-tag"><strong
+                                                style="color: green">{{ post.title_tag }}</strong></span>
+                                        </p>
+                                        <!-- Butoane -->
+                                        <p>
                                         <small>
-                                            {% if user.is_authenticated %}
-                                                {% if user.id == post.author.id %}
-                                                    <a href="{% url 'update_post' post.pk %}" class="btn btn-sm" style="--clr:#007BFFFF; margin-top: -30px"><span>Edit</span><i></i></a>
-                                                    <a href="{% url 'delete_post' post.pk %}" class="btn btn-sm" style="--clr:red; margin-top: -30px"><span>Delete</span><i></i></a>
-                                                {% endif %}
-                                            {% endif %}
-                                        </small>
+                                        {% if user.id == post.author.id %}
+                                            <a href="{% url 'update_post' post.pk %}" class="btn btn-sm"
+                                               style="--clr:#007BFFFF; margin-top: -30px"><span>Edit</span><i></i></a>
+                                            <a href="{% url 'delete_post' post.pk %}" class="btn btn-sm"
+                                               style="--clr:red; margin-top: -30px"><span>Delete</span><i></i></a>
+                                        {% endif %}
+                                    {% endif %}
+                                    </small>
                                     </p>
                                 </div>
                             </div>
@@ -71,7 +81,8 @@
                 <li class="page-item"><a class="page-link" href="?page=1">First</a></li>
             {% endif %}
             {% if page_obj.has_previous %}
-                <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}">&laquo;</a></li>
+                <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}">&laquo;</a>
+                </li>
             {% endif %}
             {% for i in page_obj.paginator.page_range %}
                 {% if i == page_obj.number %}
@@ -84,7 +95,7 @@
                 <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}">&raquo;</a></li>
             {% endif %}
             {% if page_obj.number != page_obj.paginator.num_pages %}
-                <li class="page-item"><a class="page-link" href="?page={{ page_obj.paginator.num_pages }}" >Last</a></li>
+                <li class="page-item"><a class="page-link" href="?page={{ page_obj.paginator.num_pages }}">Last</a></li>
             {% endif %}
         </ul>
     {% endif %}

@@ -1,132 +1,145 @@
 {% extends 'base.html' %}
 {% load static %}
-{% load bootstrap5 %}
-{% bootstrap_css %}
 {% block title %}
     {{ post.title_tag }}
 {% endblock %}
 
 {% block content %}
 
-    <div class="container py-4">
+    <link rel="stylesheet" href="{% static 'css/article_details.css' %}">
+    <br>
+    <div class="profile-info">
+        <div class="profile-pic">
+            {% if post.author.profile.profile_pic %}
+                <img src="{{ post.author.profile.profile_pic.url }}" alt="Profile Picture"
+                     class="img-fluid rounded-circle profile-pic-small">
+            {% else %}
+                <img src="{% static '/theblog/images/default_profile_pic.png' %}"
+                     class="img-fluid rounded-circle profile-pic-small" alt="Default Profile Picture">
+            {% endif %}
+        </div>
+        <div class="profile-details">
+            <h5>{{ post.author.first_name }} {{ post.author.last_name }}</h5>
+            <p class="small text-muted"></p>
+            {% if post.author.profile %}
+                <a href="{% url 'show_profile_page' post.author.profile.id %}"
+                   class="btn btn-sm" style="--clr:#007BFFFF" target="_blank"><span>Profile Page</span><i></i></a>
+            {% else %}
+                <p style="color: darkgoldenrod;">This user does not have a profile!</p>
+            {% endif %}
+        </div>
+    </div>
+
+
+    <div class="container py-4 custom-bg-color">
         <div class="row justify-content-center">
             <div class="col-md-12">
-                <article class="bg-light p-4 rounded">
-                    <header class="mb-4 border-bottom pb-3">
-                        <h1 class="fw-bold fs-3">{{ post.title }}</h1>
+                <article class="custom-bg-color p-4 rounded">
+                    <header class="mb-4">
+                        <h1 class="fw-bold fs-10">{{ post.title }}</h1>
                         <p class="text-muted mb-0 fs-6">
-                            By: <a href="{% url 'user_posts' user_id=post.author.id %}"
-                                   class="btn btn-sm btn-outline-primary">{{ post.author.first_name }} {{ post.author.last_name }}</a>
+                            <span class="text-custom">By:</span><a href="{% url 'user_posts' user_id=post.author.id %}"
+                                                                   class="custom-link"
+                                                                   style="text-decoration: none;">
+                            <span class="custom-hover"> {{ post.author.first_name }} {{ post.author.last_name }}</span></a>
 
-                            - {{ post.date_posted }}
+                            <span class="post-date text-custom">~ {{ post.date_posted }} ~</span>
                             {% if user.is_authenticated %}
                                 {% if user.id == post.author.id %}
                                     - <a href="{% url 'update_post' post.pk %}"
-                                         class="btn btn-sm btn-primary">Edit</a>
-                                    <a href="{% url 'delete_post' post.pk %}" class="btn btn-sm btn-danger">Delete</a>
+                                         class="btn btn-sm" style="--clr:#007BFFFF"><span>Edit</span><i></i></a>
+                                    <a href="{% url 'delete_post' post.pk %}" class="btn btn-sm"
+                                       style="--clr:red"><span>Delete</span><i></i></a>
                                 {% endif %}
                             {% endif %}
                         </p>
+                        <!-- Linii personalizate -->
+                        <hr class="custom-hr">
                     </header>
 
-                    {% if post.header_image %}
-                        <img src="{{ post.header_image.url }}" alt="Header Image" class="img-fluid mb-4 rounded">
-                    {% else %}
-                        <!-- Utilizați calea către imaginea implicită -->
-                        <img src="{% static '/theblog/images/default_image.png' %}" alt="Default Header Image"
-                             class="img-fluid mb-4 rounded">
-                    {% endif %}
+                    <div class="d-flex align-items-start flex-wrap">
+                        <!-- Utilizăm flex-wrap pentru a permite elementelor să se miște pe mai multe linii dacă este nevoie -->
+                        <div>
+                            {% if post.header_image %}
+                                <img src="{{ post.header_image.url }}" alt="Header Image"
+                                     class="img-fluid mb-4 rounded">
+                            {% else %}
+                                <!-- Utilizăm calea către imaginea implicită -->
+                                <img src="{% static '/theblog/images/default_image.png' %}" alt="Default Header Image"
+                                     class="img-fluid mb-2 rounded custom-small-image">
+                            {% endif %}
+                        </div>
 
-                    <div class="mt-4 fs-5">
-                        {{ post.body|safe }}
+                        <div class="ms-3"> <!-- Adaugăm o margine la stânga a textului pentru a-l separa de imagine -->
+                            <div class="mt-4 fs-5">
+                                {{ post.body|safe }}
+                            </div>
+                        </div>
                     </div>
 
-                    <hr>
+                    <!-- Linii personalizate -->
+                    <hr class="custom-hr">
+
 
                     <form action="{% url 'like_post' post.pk %}" method="POST">
                         {% csrf_token %}
                         {% if user.is_authenticated %}
                             {% if liked %}
                                 <button type="submit" name="post_id" value="{{ post.id }}"
-                                        class="btn btn-danger btn-sm">Unlike
+                                        class="btn btn-sm" style="--clr:red"><span>Unlike</span><i></i>
                                 </button>
                             {% else %}
                                 <button type="submit" name="post_id" value="{{ post.id }}"
-                                        class="btn btn-primary btn-sm">Like
+                                        class="btn btn-sm" style="--clr:#007BFFFF"><span>Like</span><i></i>
                                 </button>
                             {% endif %}
                         {% else %}
-                            <small class="text-muted">
-                                <a href="{% url 'login' %}" class="text-decoration-none fw-normal"
-                                   onmouseover="this.style.fontWeight='bold'"
-                                   onmouseout="this.style.fontWeight='normal'">Login</a> to Like
-                            </small>
+<span class="text-muted">
+    <a href="{% url 'login' %}" class="text-decoration-none fw-normal login-link">Login to Like</a>
+</span>
                         {% endif %}
                         - <span class="fw-bold">{{ total_like }}</span> Likes
                     </form>
 
-                    <hr>
+                    <!-- Linii personalizate -->
+                    <hr class="custom-hr">
 
-                    <div class="card bg-light mb-3">
-                        <div class="row g-0 align-items-center">
-                            <div class="col-md-2">
-                                {% if post.author.profile.profile_pic %}
-                                    <img src="{{ post.author.profile.profile_pic.url }}" alt="Profile Picture"
-                                         class="img-fluid rounded-circle">
-                                {% else %}
-                                    <img src="{% static '/theblog/images/default_profile_pic.png' %}"
-                                         class="img-fluid rounded-circle" alt="Default Profile Picture">
-                                {% endif %}
-                            </div>
-                            <div class="col-md-10">
-                                <div class="card-body">
-                                    <h5 class="card-title">{{ post.author.first_name }} {{ post.author.last_name }}</h5>
-                                    <p class="small text-muted"></p>
-                                    {% if post.author.profile %}
-                                        {#Aici faci modificarea pt. a evita eroarea ce o da un profil necompletat#}
-                                        <a href="{% url 'show_profile_page' post.author.profile.id %}"
-                                           class="btn btn-primary btn-sm">Profile Page</a>
-                                    {% else %}
-                                        <p style="color: blue;">This user does not have a profile!</p>
-                                    {% endif %}
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <hr>
 
                     <section>
                         <h2>Comments...</h2>
                         <br/>
                         {% if not post.comments.all %}
-                            No Comments Yet...<a href="{% url 'add_comment' post.pk %}" class="btn btn-sm btn-outline-primary">Add One</a>
+                            No Comments Yet...
+                            <a href="{% url 'add_comment' post.pk %}" class="btn btn-sm" style="--clr:#007BFFFF"><span>Add One</span><i></i></a>
                         {% else %}
-                            <a href="{% url 'add_comment' post.pk %}" class="btn btn-sm btn-outline-primary">Add Comment</a>
+                            <a href="{% url 'add_comment' post.pk %}" class="btn btn-sm" style="--clr:#007BFFFF"><span>Add Comment</span><i></i></a>
                             <br/>
                             <hr>
                             {% for comment in post.comments.all %}
-                                <strong style="color: blue;">{{ comment.name }}</strong> - <strong>{{ comment.date_added }}</strong>
+                                <strong style="color: #007bff;">{{ comment.name }}</strong> -
+                                <strong>{{ comment.date_added }}</strong>
 
                                 {% if user.is_authenticated %}
                                     {% if user.username == comment.name %}
                                         - <a href="{% url 'update_post' post.pk %}"
-                                             class="btn btn-sm btn-primary">Edit</a>
+                                             class="btn btn-sm" style="--clr:#007BFFFF"><span>Edit</span><i></i></a>
                                     {% endif %}
                                     {% if user.username == comment.post.author.username %}
                                         <a href="{% url 'delete_post' post.pk %}"
-                                           class="btn btn-sm btn-danger">Delete</a>
+                                           class="btn btn-sm"
+                                       style="--clr:red"><span>Delete</span><i></i></a>
                                     {% endif %}
                                     <br/>
                                 {% endif %}
                                 {{ comment.body }}
                                 <hr>
                             {% endfor %}
-                            <a href="{% url 'add_comment' post.pk %}" class="btn btn-sm btn-outline-primary">Add Comment</a>
+                            <a href="{% url 'add_comment' post.pk %}" class="btn btn-sm" style="--clr:#007BFFFF"><span>Add Comment</span><i></i></a>
                         {% endif %}
                     </section>
                 </article>
             </div>
         </div>
     </div>
+
 {% endblock %}

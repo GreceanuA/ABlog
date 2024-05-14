@@ -84,15 +84,13 @@ class UpdateProfileForm(forms.ModelForm):
 class PasswordChangingForm(PasswordChangeForm):
     old_password = forms.CharField(max_length=100,
                                    widget=forms.PasswordInput(attrs={'class': 'form-control', 'TYPE': 'password'}))
-    new_password1 = forms.CharField(max_length=100,
+    new_password1 = forms.CharField(label='New Password',max_length=100,
                                     widget=forms.PasswordInput(attrs={'class': 'form-control', 'TYPE': 'password'}))
-    new_password2 = forms.CharField(widget=forms.PasswordInput(attrs={'class': 'form-control', 'TYPE': 'password'}))
+    new_password2 = forms.CharField(label='Retype Password', widget=forms.PasswordInput(attrs={'class': 'form-control', 'TYPE': 'password'}))
 
-
-class Meta:
-    model = User
-    fields = ('old_password', 'new_password1', 'new_password2')
-
+    class Meta:
+        model = User
+        fields = ('old_password', 'new_password1', 'new_password2')
 
 
 class MyPasswordResetForm(PasswordResetForm):
@@ -115,4 +113,3 @@ class MyPasswordResetForm(PasswordResetForm):
 
         return super().save(domain_override, subject_template_name, email_template_name, use_https, token_generator,
                             from_email, request, html_email_template_name, extra_email_context)
-
